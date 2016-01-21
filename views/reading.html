@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>keep reading</title>
+	<link href='https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet' type='text/css'>
+	<link rel="shortcut icon" href="/public/img/clear.gif" />
+	<link rel="stylesheet" href="/public/css/main.css" type="text/css" media="screen, print" />
+	<link rel="stylesheet" href="/public/css/esv-format.css" type="text/css" media="screen, print" />
+	<!-- <link rel="stylesheet" href="/public/css/print.css" type="text/css" media="print" /> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="text/javascript"	src="/public/js/require.js"></script>
+</head>
+<body>
+	<div class="reading_wrapper">
+		<div class="center_column">
+			<nav class="nav" data-day-number="">
+				<a href="#gospel">Gospel</a> |
+				<a href="#nt">New Testament</a> |
+				<a href="#ot">Old Testament</a> <span class="page_break">|</span>
+				<a href="#wisdom">Wisdom</a> |
+				<a href="#memory">Memory</a>
+			</nav>
+			<section id="gospel" class="gospel">
+				<fieldset class="gospel-wrapper">
+					<legend>Gospel</legend>
+					{{.Gospel}}
+				</fieldset>
+			</section>
+			<section id="nt" class="nt">
+				<fieldset class="nt-wrapper">
+					<legend>New Testament</legend>
+					{{.Nt}}
+				</fieldset>
+			</section>
+			<section id="ot" class="ot">
+				<fieldset class="ot-wrapper">
+					<legend>Old Testament</legend>
+					{{.Ot}}
+				</fieldset>
+			</section>
+			<section id="wisdom" class="wisdom">
+				<fieldset class="wisdom-wrapper">
+					<legend>Psalms &amp; Wisdom</legend>
+					{{.Wisdom}}
+				</fieldset>
+			</section>
+			<aside>
+				<p><a id="mark_read" class="mark_read" href=""><button>finished reading</button></a></p>
+			</aside>
+			<section id="memory" class="memory">
+				<fieldset class="memory-wrapper">
+					<legend>Memory Verse</legend>
+					{{.Memory}}
+				</fieldset>
+			</section>
+		</div>
+	</div>
+	<div class="footer_wrapper">
+		<div class="center_column">
+			<div class="footer">
+				<ul class="footer-nav_list">
+					<li><a target="_blank" href="http://www.esvbible.org/">ESV</a> <a target="_blank" href="http://www.esvapi.org/">API</a></li>
+					<li><a target="_blank" href="https://www.navigators.org/www_navigators_org/media/navigators/tools/Resources/Discipleship-Journal-Bible-Reading-Plan-9781617479083.pdf">Discipleship Journal Reading Plan</a></li>
+					<li><a target="_blank" href="http://fighterverses.com/">Fighter Verses</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script>
+	requirejs(["public/js/xhr", "public/js/domReady", "public/js/cookie"], function(xhr, domReady, cookie) {
+		domReady(function () {
+
+			var hiddenClassName = "--collapsed"
+			var legends = document.getElementsByTagName("legend")
+			for(var i = 0; i < legends.length; i += 1){
+				legends[i].addEventListener("click", function(){
+					var that = this;
+					var stateIndex = that.parentElement.className.indexOf(hiddenClassName);
+					if(stateIndex != -1){
+						that.parentElement.className = that.parentElement.className.substring(0, stateIndex);
+					}else{
+						that.parentElement.className += hiddenClassName;
+					}
+				});
+			}
+
+			var markRead = document.getElementById("mark_read");
+			markRead.addEventListener("click", function(e){
+				e.preventDefault();
+
+				var month = cookie.get("month");
+				var day   = cookie.get("day");
+
+				for(month -= 0; month > 12; month -= 12){}
+				for(day -= 0; day > 25; day -= 25){}
+
+				if(month < 1){ month = 1; }
+				if(day < 1){ day = 1; }
+
+				if(day == 25){
+					month += 1;
+					day = 1;
+				}else{
+					day += 1;
+				}
+
+				cookie.set("month", month, 3600);
+				cookie.set("day", day, 3600);
+
+			});
+		});
+	});
+	</script>
+</body>
+</html>
