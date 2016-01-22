@@ -14,3 +14,7 @@ The `Godeps` dir and the `Procfile` exist strictly for use with heroku. Also, I 
 locally for .scss files and the makefile reflects that even though nothing in my sass needs
 compass.
 
+# WIP / Proof of Concept
+
+[keepreading.herokuapp.com](http://keepreading.herokuapp.com/)
+
