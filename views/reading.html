@@ -63,6 +63,7 @@
 					<li><a target="_blank" href="http://www.esvbible.org/">ESV</a> <a target="_blank" href="http://www.esvapi.org/">API</a></li>
 					<li><a target="_blank" href="https://www.navigators.org/www_navigators_org/media/navigators/tools/Resources/Discipleship-Journal-Bible-Reading-Plan-9781617479083.pdf">Discipleship Journal Reading Plan</a></li>
 					<li><a target="_blank" href="http://fighterverses.com/">Fighter Verses</a></li>
+					<li><a href="/public/about.html">about</a></li>
 				</ul>
 			</div>
 		</div>
@@ -92,12 +93,19 @@
 				var month = cookie.get("month");
 				var day   = cookie.get("day");
 
+				// cast to int, recude by 12 until less that 12
 				for(month -= 0; month > 12; month -= 12){}
+
+				// cast to int, recude by 25 until less that 25
 				for(day -= 0; day > 25; day -= 25){}
 
+				// do not allow zero
 				if(month < 1){ month = 1; }
+
+				// do not allow zero
 				if(day < 1){ day = 1; }
 
+				// rollover on day 26
 				if(day == 25){
 					month += 1;
 					day = 1;
@@ -108,7 +116,7 @@
 				cookie.set("month", month, 3600);
 				cookie.set("day", day, 3600);
 
-				console.log(cookie.all());
+				document.reload();
 
 			});
 		});

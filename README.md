@@ -8,3 +8,9 @@ a browser based daily bible reading and memorization application
   - light/dark preference
   - sans/serif preference
 
+# notes
+
+The `Godeps` dir and the `Procfile` exist strictly for use with heroku. Also, I use compass
+locally for .scsss files and the makefile reflects that even though nothing in my SASS needs
+compass.
+
