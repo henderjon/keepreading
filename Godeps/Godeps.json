@@ -1,10 +1,5 @@
 {
 	"ImportPath": "github.com/henderjon/keepreading",
 	"GoVersion": "go1.5",
-	"Deps": [
-		{
-			"ImportPath": "github.com/henderjon/esv/esvapi",
-			"Rev": "30c81111170d526f804d0415c8cf41b79b03201a"
-		}
-	]
+	"Deps": []
 }

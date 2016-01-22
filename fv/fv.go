@@ -1,7 +1,7 @@
 package fv
 
 import (
-	"github.com/henderjon/esv/esvapi"
+	"github.com/henderjon/keepreading/esvapi"
 	"log"
 	"math"
 	"os"

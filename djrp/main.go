@@ -2,7 +2,7 @@ package djrp
 
 import (
 	"bytes"
-	"github.com/henderjon/esv/esvapi"
+	"github.com/henderjon/keepreading/esvapi"
 	"log"
 	"os"
 	"text/template"
