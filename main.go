@@ -45,7 +45,7 @@ func main() {
 
 	http.HandleFunc("/", HandleAll())
 	http.HandleFunc("/set", HandleSetBookmark())
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":80", nil)
 
 }
 
