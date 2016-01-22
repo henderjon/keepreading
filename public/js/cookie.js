@@ -1,20 +1,32 @@
 define([], function () {
 	"use strict";
 
+	var parse = function() {
+		var o = {}, i,
+			lines = document.cookie.split('; '),
+			values;
+
+		for (i = 0; i < lines.length; i++) {
+			values = lines[i].split('=');
+			if (values.length > 1) {
+				o[values[0].trim()] = values.slice(1).join('=').trim();
+			}
+		}
+
+		return o;
+	};
+
 	var cookie = {
 		'set' : function(cname, cvalue, exdays){
 			var d = new Date();
 			d.setTime(d.getTime() + (exdays*1000*60*60*24));
 			var expires = "expires="+d.toUTCString();
-			document.cookie = cname + "=" + cvalue + "; " + expires;
+			document.cookie = cname + "=" + encodeURIComponent(cvalue) + "; " + expires;
 		},
 		'get' : function(cname) {
-			var name = cname + "=";
-			var ca = document.cookie.split(';');
-			for(var i=0; i<ca.length; i++) {
-				var c = ca[i];
-				while (c.charAt(0)==' ') c = c.substring(1);
-				if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+			var values = parse();
+			if (values.hasOwnProperty(cname)) {
+				return decodeURIComponent(values[cname]);
 			}
 			return "";
 		},
