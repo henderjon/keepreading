@@ -19,7 +19,7 @@
 				<a href="#nt">New Testament</a> |
 				<a href="#ot">Old Testament</a> <span class="page_break">|</span>
 				<a href="#wisdom">Wisdom</a> |
-				<a href="#memory">Memory</a>
+				<a href="#memory">Memory</a> <span id="current_reading"></span>
 			</nav>
 			<section id="gospel" class="gospel">
 				<fieldset class="gospel-wrapper">
@@ -86,13 +86,7 @@
 				});
 			}
 
-			var markRead = document.getElementById("mark_read");
-			markRead.addEventListener("click", function(e){
-				e.preventDefault();
-
-				var month = cookie.get("month");
-				var day   = cookie.get("day");
-
+			var normalizeBookmark = function normalizeBookmark(month, day){
 				// cast to int, recude by 12 until less that 12
 				for(month -= 0; month > 12; month -= 12){}
 
@@ -105,18 +99,37 @@
 				// do not allow zero
 				if(day < 1){ day = 1; }
 
+				return {
+					"month" : month,
+					"day"   : day
+				}
+			}
+
+			var month = cookie.get("month");
+			var day   = cookie.get("day");
+			var bookmark = normalizeBookmark(month, day);
+
+			var markRead = document.getElementById("current_reading");
+			markRead.innerHTML = "| " + bookmark.month + ":" + bookmark.day
+
+			var markRead = document.getElementById("mark_read");
+			markRead.addEventListener("click", function(e){
+				e.preventDefault();
+
+				var bookmark = normalizeBookmark(month, day);
+
 				// rollover on day 26
 				if(day == 25){
-					month += 1;
-					day = 1;
+					bookmark.month += 1;
+					bookmark.day = 1;
 				}else{
-					day += 1;
+					bookmark.day += 1;
 				}
 
-				cookie.set("month", month, 3600);
-				cookie.set("day", day, 3600);
+				cookie.set("month", bookmark.month, 3600);
+				cookie.set("day", bookmark.day, 3600);
 
-				document.reload();
+				document.location.reload();
 
 			});
 		});
